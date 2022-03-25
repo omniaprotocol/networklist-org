@@ -11,12 +11,12 @@ import classes from './multichain.module.css'
 import stores from '../../stores/index.js'
 import { getProvider } from '../../utils'
 
-export default function Multichain({ closeMultichain }) {
+export default function OmniaDashboard({ closeMultichain: closeOmnia }) {
 
   const [ checked, setChecked ] = useState(false)
 
-  const navigateToMultichain = () => {
-    window.open("https://multichain.xyz", "_blank")
+  const navigateToOmnia = () => {
+    window.open("https://app.omniatech.io", "_blank")
   }
 
   const handleChange = () => {
@@ -71,17 +71,17 @@ export default function Multichain({ closeMultichain }) {
     <Paper elevation={ 1 } className={ classes.chainContainer } key={ 'multichain' } >
       <ThemeProvider theme={theme}>
         <div className={ classes.topInfo }>
-          <img src='/multichain-logo.png' width={ 126 } height={ 126 } className={ classes.avatar } />
-          <Typography variant='subtitle1' className={ classes.descriptionText} align='center' >Manage over 120 tokens and multi-chain assets with fully supported cross chain transactions.</Typography>
+          <img src='/omnia.png' width={ 224 } height={ 126 } className={ classes.avatar } />
+          <Typography variant='subtitle1' className={ classes.descriptionText} align='center' >Generate secure and reliable JSON RPC endpoints for your wallet or your DApp.</Typography>
           <Button
             className={ classes.tryButton }
             variant='contained'
             disableElevation
-            onClick={ navigateToMultichain }
+            onClick={ navigateToOmnia }
             color='secondary'
             endIcon={<ArrowForwardIcon />}
           >
-            <Typography className={ classes.buttonLabel }>Try out <b>multichain.xyz</b></Typography>
+            <Typography className={ classes.buttonLabel }>Try out <b>app.omniatech.io</b></Typography>
           </Button>
         </div>
         <div className={ classes.bottomActions }>
@@ -91,7 +91,7 @@ export default function Multichain({ closeMultichain }) {
           />
           <Button
             size='small'
-            onClick={ () => { closeMultichain(checked) } }
+            onClick={ () => { closeOmnia(checked) } }
             endIcon={<CloseIcon />}
           >
             <Typography className={ classes.buttonLabel }>Close</Typography>
