@@ -648,6 +648,11 @@ export const extraRpcs = {
   },
   1666600000: {
     rpcs: [
+      {
+        url: "https://endpoints.omniatech.io/v1/harmony/mainnet-0/public",
+        tracking: "none",
+        trackingDetails: privacyStatement.omnia,
+      },
       "https://harmony-0-rpc.gateway.pokt.network",
       "https://api.harmony.one",
       "https://a.api.s0.t.hmny.io",
@@ -659,6 +664,15 @@ export const extraRpcs = {
       },
       "https://harmony-mainnet.chainstacklabs.com",
     ],
+  },
+  1666700000:{
+    rpcs: [
+      {
+        url: "https://endpoints.omniatech.io/v1/harmony/testnet-0/public",
+        tracking: "none",
+        trackingDetails: privacyStatement.omnia,
+      },
+      ],
   },
   1313161554: {
     rpcs: [
@@ -772,6 +786,11 @@ export const extraRpcs = {
   },
   100: {
     rpcs: [
+      {
+        url: "https://endpoints.omniatech.io/v1/gnosis/mainnet/public",
+        tracking: "none",
+        trackingDetails: privacyStatement.omnia,
+      },
       "https://rpc.gnosischain.com",
       "https://xdai-rpc.gateway.pokt.network",
       "https://xdai-archive.blockscout.com",
@@ -796,6 +815,11 @@ export const extraRpcs = {
   },
   10200: {
     rpcs: [
+      {
+        url: "https://endpoints.omniatech.io/v1/gnosis/chiado/public",
+        tracking: "none",
+        trackingDetails: privacyStatement.omnia,
+      },
       "https://rpc.chiadochain.net",
       "https://rpc.eu-central-2.gateway.fm/v3/gnosis/archival/chiado",
     ],
@@ -1998,6 +2022,15 @@ export const extraRpcs = {
     rpcs: [
       "https://evmapi.nuls.io",
       "https://evmapi2.nuls.io",
+    ],
+  },
+  84531:{
+    rpcs: [
+      {
+        url: "https://endpoints.omniatech.io/v1/base/goerli/public",
+        tracking: "none",
+        trackingDetails: privacyStatement.omnia,
+      },
     ],
   },
 };
