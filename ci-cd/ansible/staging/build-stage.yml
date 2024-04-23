@@ -1,0 +1,32 @@
+---
+- name: Omnia Networklist deployment steps
+  hosts: all
+  become: true
+  tasks:
+    - name: Install http-server.
+      community.general.npm:
+        name: http-server
+        global: true
+
+    - name: Create /opt/omnia-networklist/ if it does not exist
+      file:
+        path: /opt/omnia-networklist/
+        state: directory
+        mode: 0644
+
+    - name: copy static files
+      copy:
+        src: ../../../out/
+        dest: /opt/omnia-networklist/
+
+    - name: copy dashboard frontend service file
+      copy:
+        src: ../../networklist-frontend.service
+        dest: /lib/systemd/system/
+
+    - name: start dashboard-frontend service
+      systemd:
+        daemon_reload: yes
+        name: networklist-frontend.service
+        state: started
+        enabled: yes

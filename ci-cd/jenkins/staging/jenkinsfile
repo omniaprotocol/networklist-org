@@ -1,0 +1,65 @@
+pipeline {
+    agent { node { label 'default' } }
+
+    environment {
+        STAGING_SERVER = '10.42.1.61'
+        NPM_TOKEN = credentials('npm_token-vault')
+        ANSIBLE_HOST_KEY_CHECKING = 'False'
+    }
+
+    stages {
+        stage('Prepare') {
+            steps {
+                bitbucketStatusNotify buildState: 'INPROGRESS'
+            }
+        }
+
+        stage('create otp ssh password') {
+            steps {
+                script {
+                    withCredentials(
+                    [[$class: 'VaultTokenCredentialBinding',
+                    addrVariable: 'VAULT_ADDR',
+                    credentialsId: '3a5b33e9-87b2-4b3a-8b9c-d4543b44759a',
+                    tokenVariable: 'VAULT_TOKEN',
+                    vaultAddr: 'http://10.42.1.1:8201']])
+                    {
+                        env.SSH_PASS = sh(
+                            script : "./ci-cd/scripts/staging/create-ssh-pass.sh $STAGING_SERVER",
+                            returnStdout: true
+                            )
+                    }
+                }
+            }
+        }
+
+        stage('Install deps') {
+            steps {
+                sh 'yarn install'
+            }
+        }
+
+        stage('Build frontend') {
+            steps {
+                sh 'yarn build2'
+            }
+        }
+
+        stage('Ansible Deployment') {
+            steps {
+                        wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: [[password: SSH_PASS]]]) {
+                            sh 'ansible-playbook ./ci-cd/ansible/staging/build-stage.yml -i ${STAGING_SERVER}, -e "ansible_user=ubuntu ansible_password=${SSH_PASS}"'
+                        }
+            }
+        }
+    }
+    post {
+        success {
+            bitbucketStatusNotify buildState: 'SUCCESSFUL'
+        }
+
+        failure {
+            bitbucketStatusNotify buildState: 'FAILED'
+        }
+    }
+}
