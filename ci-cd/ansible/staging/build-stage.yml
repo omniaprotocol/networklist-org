@@ -15,7 +15,7 @@
         mode: 0644
 
     - name: copy static files
-      copy:
+      ansible.posix.synchronize:
         src: ../../../out/
         dest: /opt/omnia-networklist/
 
