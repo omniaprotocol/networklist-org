@@ -14,9 +14,14 @@
         state: directory
         mode: 0644
 
-    - name: copy static files
-      ansible.posix.synchronize:
-        src: ../../../out/
+    - name: Compress directory static files before moving
+      archive:
+        path: ../../../out/
+        dest: ./out.tar.gz
+
+    - name: move and unarchive static files
+      unarchive:
+        src: ./out.tar.gz
         dest: /opt/omnia-networklist/
 
     - name: copy dashboard frontend service file
