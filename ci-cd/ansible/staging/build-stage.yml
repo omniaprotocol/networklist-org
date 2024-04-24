@@ -16,12 +16,12 @@
 
     - name: Compress directory static files before moving
       archive:
-        path: ../../../out/
-        dest: out.tar.gz
+        path: ../../../out
+        dest: ./out.tar.gz
 
     - name: move and unarchive static files
       unarchive:
-        src: out.tar.gz
+        src: ./out.tar.gz
         dest: /opt/omnia-networklist/
 
     - name: copy dashboard frontend service file
