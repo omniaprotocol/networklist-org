@@ -45,11 +45,23 @@ pipeline {
             }
         }
 
+        stage('Archive directory') {
+            steps {
+                sh 'tar -czvf out.tar.gz ./out/'
+            }
+        }
+
         stage('Ansible Deployment') {
             steps {
                         wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: [[password: SSH_PASS]]]) {
                             sh 'ansible-playbook ./ci-cd/ansible/staging/build-stage.yml -i ${STAGING_SERVER}, -e "ansible_user=ubuntu ansible_password=${SSH_PASS}"'
                         }
+            }
+        }
+
+        stage('remove arhive') {
+            steps {
+                sh 'tar -czvf out.tar.gz ./out/'
             }
         }
     }
