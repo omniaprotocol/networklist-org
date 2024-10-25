@@ -5,7 +5,7 @@ Description=Networklist Frontend Service
 Type=simple
 Restart=always
 WorkingDirectory=/opt/omnia-networklist/
-ExecStart=/usr/bin/http-server /opt/omnia-networklist/ -p 4300 -a localhost
+ExecStart=http-server /opt/omnia-networklist/ -p 4300 -a localhost
 
 [Install]
 WantedBy=multi-user.target
